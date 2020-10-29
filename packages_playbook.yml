@@ -1,0 +1,42 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - apt_repository:
+        repo: ppa:atareao/telegram
+        state: present
+
+    - name: install packages from URL
+      apt:
+        deb: https://discordapp.com/api/download?platform=linux&format=deb
+        deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb
+
+    - name: install packages
+      apt:
+        pkg:
+        - git
+        - thunderbird
+        - flameshot
+        update_cache: yes
+
+    - name: Création de /mnt/DATA/software/java
+      file:
+        path: /mnt/DATA/software/java
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: Install java
+      unarchive:
+        src: /mnt/NAS/REMI/adm/vaio/software/jdk-11.0.2_linux-x64_bin.tar.gz
+        dest: /mnt/DATA/software/java
+        remote_src: yes
+
+# Ajouter ça dans bashrc
+# export JAVA_HOME=/mnt/DATA/software/java/jdk-11.0.2/
+# export PATH=${PATH}:${JAVA_HOME}/bin/

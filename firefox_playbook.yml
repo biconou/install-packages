@@ -1,0 +1,24 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+
+  vars:
+    firefox:
+      addons:
+        - url: https://addons.mozilla.org/en-US/firefox/addon/floccus
+
+  roles:
+    - alzadude.firefox
+
+  # tasks:
+    # - name: Install KeePass Tusk
+    #   firefox_addon:
+    #     url: https://addons.mozilla.org/firefox/downloads/file/1164506/keepass_tusk_password_access_and_autofill-2018.11.28-fx.xpi?src=search
+    #     state: present
+    # - name: Install floccus
+    #   firefox_addon:
+    #     url: https://addons.mozilla.org/en-US/firefox/addon/floccus/
+    #     state: present

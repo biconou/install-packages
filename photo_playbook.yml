@@ -1,0 +1,36 @@
+---
+
+- name: Photo tools Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    # sudo add-apt-repository ppa:f-spot/f-spot-ppa
+    # - apt_repository:
+    #     repo: ppa:f-spot/f-spot-ppa
+    #     state: present
+
+    - apt_repository:
+        repo: ppa:ubuntuhandbook1/avidemux
+        state: present
+
+    - name: install packages from URL
+      apt:
+        deb: https://www.hamrick.com/files/vuex6497.deb
+        # Emplacement de la base xnview : /mnt/DATA/nextcloud-sync/remi/Photos/.tools/xnview/
+        # à paramétrer dans le menu outils/paramètres/intégration/chemins
+        deb: https://download.xnview.com/XnViewMP-linux-x64.deb
+
+    - name: install packages
+      apt:
+        pkg:
+        - darktable
+        - tesseract-ocr
+        - tesseract-ocr-fra
+        - imagemagick
+        - simple-scan
+        - gimp
+        - avidemux2.7-qt5
+     #   - f-spot
+        update_cache: yes

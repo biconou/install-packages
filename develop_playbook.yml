@@ -1,0 +1,15 @@
+---
+
+- name: Development Tools Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - name: install packages
+      apt:
+        pkg:
+        - npm
+        update_cache: yes
+
+

@@ -1,0 +1,42 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - name: propriétés de /mnt/DATA/nextcloud-sync
+      file:
+        path: /mnt/DATA/nextcloud-sync
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: propriétés de /mnt/DATA/nextcloud-sync/remi
+      file:
+        path: /mnt/DATA/nextcloud-sync/remi
+        state: directory
+        owner: remi
+        group: root
+        mode: '775'
+
+    - name: propriétés de /mnt/DATA/nextcloud-sync/enfer
+      file:
+        path: /mnt/DATA/nextcloud-sync/enfer
+        state: directory
+        owner: remi
+        group: root
+        mode: '775'
+
+    # Installation NextCloud
+    - apt_repository:
+        repo: ppa:nextcloud-devs/client
+        state: present
+
+    - name: installation packages NextCloud
+      apt:
+        pkg:
+        - nextcloud-client
+        update_cache: yes

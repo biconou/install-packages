@@ -1,0 +1,68 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - apt_repository:
+        repo: ppa:atareao/telegram
+        state: present
+
+    - name: install packages from URL
+      apt:
+        deb: https://www.hamrick.com/files/vuex6497.deb
+        deb: https://discordapp.com/api/download?platform=linux&format=deb
+        deb: https://download.xnview.com/XnViewMP-linux-x64.deb
+        # deb: https://github.com/autokey/autokey/releases/download/v0.95.10/autokey-common_0.95.10-0_all.deb
+
+    - name: install packages
+      apt:
+        pkg:
+        - darktable
+        - git
+        - telegram
+        - thunderbird
+        - flameshot
+        - nicotine
+        - tesseract-ocr
+        - tesseract-ocr-fra
+        - imagemagick
+        - simple-scan
+        - autokey-common
+        - autokey-gtk
+        - gimp
+        update_cache: yes
+
+    - name: Création de /mnt/DATA/software/Soulseek
+      file:
+        path: /mnt/DATA/software/Soulseek
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: Install Soulseek
+      unarchive:
+        src: https://www.slsknet.org/SoulseekQt/Linux/SoulseekQt-2018-1-30-64bit-appimage.tgz
+        dest: /mnt/DATA/software/Soulseek
+        remote_src: yes
+
+    - name: Création de /mnt/DATA/software/java
+      file:
+        path: /mnt/DATA/software/java
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: Install java
+      unarchive:
+        src: /mnt/NAS/REMI/adm/vaio/software/jdk-11.0.2_linux-x64_bin.tar.gz
+        dest: /mnt/DATA/software/java
+        remote_src: yes
+
+# Ajouter ça dans bashrc
+# export JAVA_HOME=/mnt/DATA/software/java/jdk-11.0.2/
+# export PATH=${PATH}:${JAVA_HOME}/bin/
