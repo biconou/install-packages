@@ -28,6 +28,7 @@
         - gnupg-agent
         - software-properties-common
         - remmina
+        - autokey-qt
         update_cache: yes
 
     - name: propriétés de /mnt/DATA
