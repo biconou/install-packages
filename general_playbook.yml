@@ -29,7 +29,13 @@
         - software-properties-common
         - remmina
         - autokey-qt
+        - snapd
         update_cache: yes
+
+    - name: installation packages utilitaires
+      snap:
+        name:
+          - tusk
 
     - name: propriétés de /mnt/DATA
       file:
