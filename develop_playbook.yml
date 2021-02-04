@@ -6,10 +6,15 @@
   hosts: localhost
   tasks:
 
-    - name: install packages
+    - name: install packages outils de developpement
       apt:
         pkg:
         - npm
         update_cache: yes
+
+    - name: install packages outils de developpement
+      snap:
+        name:
+          - postman
 
 
