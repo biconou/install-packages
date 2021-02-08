@@ -10,6 +10,7 @@
       apt:
         pkg:
         - npm
+        - jq
         update_cache: yes
 
     - name: install packages outils de developpement
