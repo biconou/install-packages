@@ -37,6 +37,12 @@
         name:
           - tusk
 
+    - name: install packages from URL
+      apt:
+        deb: https://discordapp.com/api/download?platform=linux&format=deb
+        deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb
+        deb: http://pencil.evolus.vn/dl/V3.1.0.ga/pencil_3.1.0.ga_amd64.deb
+    
     - name: propriétés de /mnt/DATA
       file:
         path: /mnt/DATA
