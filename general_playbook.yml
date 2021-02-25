@@ -11,7 +11,7 @@
         name: remi
         append: true
         groups: root
-
+  
     - name: installation packages utilitaires
       apt:
         pkg:
@@ -30,6 +30,9 @@
         - remmina
         - autokey-qt
         - snapd
+        - inkscape
+        - easytag
+        - kdiff3
         update_cache: yes
 
     - name: installation packages utilitaires
