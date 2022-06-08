@@ -7,12 +7,12 @@
   tasks:
 
 
-  - name: Add Spotify official GPG key
-    shell:
-      cmd: curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-  - name: set up spotify repository
-    shell:
-      cmd: echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+  # - name: Add Spotify official GPG key
+  #   shell:
+  #     cmd: curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+  # - name: set up spotify repository
+  #   shell:
+  #     cmd: echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 
   - name: install packages
@@ -20,6 +20,7 @@
       pkg:
         - clementine
         - spotify-client
+        - audacity
       update_cache: yes
 
 

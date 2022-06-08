@@ -11,6 +11,8 @@
         pkg:
         - npm
         - jq
+        - python3-pip
+        - libpq-dev
         update_cache: yes
 
     - name: install packages outils de developpement
