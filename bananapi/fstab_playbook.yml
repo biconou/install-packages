@@ -1,0 +1,32 @@
+---
+- hosts: bananapi
+  remote_user: root
+  tasks:
+    - name: create /mnt/DATA
+      ansible.builtin.file:
+        path: /mnt/DATA
+        state: directory
+        mode: '0775'
+    - name: mount /mnt/DATA
+      mount:
+        path: /mnt/DATA
+        src: UUID=d2fd18ac-b06b-43a2-ae33-41c11b093342
+        state: mounted
+        fstype: ext4
+        opts: "rw"
+    - name: install nfs commons
+      package:
+        name: nfs-common
+        state: present
+    - name: mount /mnt/NAS
+      mount:
+        path: /mnt/NAS
+        src: 192.168.0.29:/mnt/DATA
+        state: mounted
+        fstype: nfs
+    - name: mount /mnt/NAS2
+      mount:
+        path: /mnt/NAS2
+        src: 192.168.0.29:/mnt/DATA2
+        state: mounted
+        fstype: nfs

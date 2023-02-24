@@ -1,0 +1,15 @@
+---
+- hosts: bananapi
+  remote_user: bi
+  tasks:
+    - name: Create /mnt/DATA/elk-data
+      ansible.builtin.file:
+        path: /mnt/DATA/elk-data
+        state: directory
+        mode: '0755'
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'git@github.com:biconou/elk-deploy.git'
+        dest: /mnt/DATA/elk-deploy
+        version: personal
+

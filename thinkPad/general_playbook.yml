@@ -1,0 +1,127 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - name: user remi
+      user:
+        name: remi
+        append: true
+        groups: root
+  
+    - name: installation packages utilitaires
+      apt:
+        pkg:
+        - synaptic
+        - nfs-common
+        - virtualbox
+        - virtualbox-dkms
+        - software-properties-common
+        - apt-transport-https
+        - wget
+        - kio-gdrive
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+        - remmina
+        - autokey-qt
+        - snapd
+        - inkscape
+        - easytag
+        - kdiff3
+        update_cache: yes
+
+    - name: installation packages utilitaires
+      snap:
+        name:
+          - tusk
+
+    - name: install packages from URL
+      apt:
+        deb: https://discordapp.com/api/download?platform=linux&format=deb
+        deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb
+        deb: http://pencil.evolus.vn/dl/V3.1.0.ga/pencil_3.1.0.ga_amd64.deb
+    
+    - name: propriétés de /mnt/DATA
+      file:
+        path: /mnt/DATA
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: propriétés de /mnt/NAS
+      file:
+        path: /mnt/NAS
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: propriétés de /mnt/DIVX
+      file:
+        path: /mnt/DIVX
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    - name: mount /mnt/DATA
+      mount:
+        path: /mnt/DATA
+        src: /dev/nvme0n1p6
+        fstype: ext4
+        state: mounted
+
+    - name: mount /mnt/NAS
+      mount:
+        path: /mnt/NAS
+        src: 192.168.0.29:/mnt/DATA
+        fstype: nfs
+        state: present
+
+    - name: mount /mnt/DIVX
+      mount:
+        path: /mnt/DIVX
+        src: 192.168.0.29:/mnt/SAUV_DATA/DIVX
+        fstype: nfs
+        state: present
+
+    - name: Création de /mnt/DATA/software
+      file:
+        path: /mnt/DATA/software
+        state: directory
+        owner: root
+        group: root
+        mode: '775'
+
+    # Installation visual studio code
+    - name: import the Microsoft GPG key
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+        state: present
+
+    - name: installation packages visual studio code
+      apt:
+        pkg:
+        - code
+        update_cache: yes
+
+    # Installation KeePass
+    - apt_repository:
+        repo: ppa:jtaylor/keepass
+        state: present
+
+    - name: installation packages KeePass
+      apt:
+        pkg:
+        - keepass2
+        update_cache: yes

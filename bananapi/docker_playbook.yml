@@ -1,0 +1,36 @@
+---
+- hosts: bananapi
+  remote_user: root
+  tasks:
+  - name: Add Docker’s official GPG key
+    shell:
+      cmd: curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  - name: set up the stable docker repository
+    shell:
+      cmd: echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list
+  - name: INSTALL DOCKER ENGINE - COMMUNITY
+    apt:
+      pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+      update_cache: yes
+  - name: add user bi to group docker
+    user:
+      name: bi
+      groups: docker
+      append: yes
+  # - name: install docker compose
+  #   pip:
+  #     name: docker-compose
+  # - name: Répertoire docker
+  #   file:
+  #     path: /mnt/DATA/docker
+  #     state: directory
+  #     owner: root
+  #     group: root
+  #     mode: '775'
+
+# Changer la configuration du service docker comme indiqué ci dessous
+# https://linuxconfig.org/how-to-move-docker-s-default-var-lib-docker-to-another-directory-on-ubuntu-debian-linux

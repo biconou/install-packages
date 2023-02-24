@@ -6,4 +6,4 @@ if [ $# -eq 0 ]
 fi
 
 PLAYBOOK=$1
-sudo ansible-playbook  ${PLAYBOOK}_playbook.yml
+sudo ansible-playbook --connection=local  ${PLAYBOOK}_playbook.yml

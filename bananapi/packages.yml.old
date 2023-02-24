@@ -1,0 +1,23 @@
+---
+- hosts: 192.168.0.11
+  remote_user: root
+  tasks:
+    - name: install packages
+      apt:
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg2
+        - software-properties-common
+        - pulseaudio
+        - python-pip
+        - python-setuptools
+        - python-dev
+        - libffi-dev
+        - cmus
+        update_cache: yes
+
+    # - git:
+    #     repo: 'https://github.com/biconou/Mopidy.git'
+    #     dest: /Mopidy

@@ -1,0 +1,4 @@
+defaults.pcm.!card MYDAC
+defaults.ctl.!card MYDAC
+defaults.pcm.!device 0
+defaults.ctl.!device 0

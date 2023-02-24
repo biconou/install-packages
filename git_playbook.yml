@@ -1,0 +1,10 @@
+---
+- hosts: bananapi
+  remote_user: root
+  tasks:
+    - name: install packages
+      apt:
+        pkg:
+        - git
+        update_cache: yes
+
