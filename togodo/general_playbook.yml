@@ -1,0 +1,55 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - name: installation packages utilitaires
+      apt:
+        pkg:
+        - synaptic
+        - nfs-common
+        - virtualbox
+        - virtualbox-dkms
+        - software-properties-common
+        - apt-transport-https
+        - wget
+        - curl
+        - remmina
+        - autokey-qt
+        - snapd
+        update_cache: yes
+
+    - name: installation packages utilitaires
+      snap:
+        name:
+          - tusk
+
+    # Installation visual studio code
+    - name: import the Microsoft GPG key
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+        state: present
+
+    - name: installation packages visual studio code
+      apt:
+        pkg:
+        - code
+        update_cache: yes
+
+    # Installation KeePass
+    - apt_repository:
+        repo: ppa:jtaylor/keepass
+        state: present
+
+    - name: installation packages KeePass
+      apt:
+        pkg:
+        - keepass2
+        update_cache: yes
