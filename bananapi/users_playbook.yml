@@ -6,7 +6,7 @@
       user:
         name: bi
         password: $6$mysecretsalt$KwBXMXgW1BP9mgMTLC3xHNKh6hIBR.kproH3L4aWc0q5x.tL2E74Maw5J9QXknqyWrxV9uoSKbnb7utwbFd/81
-        groups: root,sudo,audio
+        groups: root,sudo,audio,docker
         shell: /bin/bash
         home: /home/bi
     - name: install asoundrc 

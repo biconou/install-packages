@@ -1,0 +1,22 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    # - apt_repository:
+    #     repo: deb http://fr.archive.ubuntu.com/ubuntu bionic main universe
+    #     state: present
+
+    - name: installation packages utilitaires
+      apt:
+        pkg:
+        - libwebkitgtk-3.0-0
+        update_cache: yes
+
+    - name: install Modelio
+      apt:
+        deb: https://github.com/ModelioOpenSource/Modelio/releases/download/v5.1.0/Ubuntu.modelio-open-source5.1_5.1.0_ubuntu_amd64.deb
+

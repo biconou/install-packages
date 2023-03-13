@@ -1,4 +1,12 @@
 ---
+- hosts: localhost
+  remote_user: root
+  connection: local
+  tasks:
+    - name: user remi
+      user:
+        name: remi
+        groups: root,sudo,audio,www-data,docker
 
 - name: Local Getting Started First Playbook
   connection: local

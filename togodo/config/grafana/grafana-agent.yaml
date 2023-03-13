@@ -1,0 +1,67 @@
+integrations:
+  node_exporter:
+    enabled: true
+    relabel_configs:
+    - replacement: togodo
+      target_label: instance
+  prometheus_remote_write:
+  - basic_auth:
+      password: eyJrIjoiY2IyNjZhMjIwYmI0YjhkNjQwNDkzOGIwYTFhN2JkMDA4ZWRlM2Y1MCIsIm4iOiJzdGFjay01MjM1MjUtZWFzeXN0YXJ0LXByb20tcHVibGlzaGVyIiwiaWQiOjc4Mzc0OH0=
+      username: 747837
+    url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+logs:
+  configs:
+  - clients:
+    - basic_auth:
+        password: eyJrIjoiY2IyNjZhMjIwYmI0YjhkNjQwNDkzOGIwYTFhN2JkMDA4ZWRlM2Y1MCIsIm4iOiJzdGFjay01MjM1MjUtZWFzeXN0YXJ0LXByb20tcHVibGlzaGVyIiwiaWQiOjc4Mzc0OH0=
+        username: 372888
+      url: https://logs-prod-eu-west-0.grafana.net/loki/api/v1/push
+    name: integrations
+    positions:
+      filename: /tmp/positions.yaml
+    scrape_configs:
+    - job_name: integrations/node_exporter_journal_scrape
+      journal:
+        labels:
+          instance: togodo
+          job: integrations/node_exporter
+        max_age: 24h
+      relabel_configs:
+      - source_labels:
+        - __journal__systemd_unit
+        target_label: unit
+      - source_labels:
+        - __journal__boot_id
+        target_label: boot_id
+      - source_labels:
+        - __journal__transport
+        target_label: transport
+      - source_labels:
+        - __journal_priority_keyword
+        target_label: level
+    - job_name: integrations/node_exporter_direct_scrape
+      static_configs:
+      - labels:
+          __path__: /var/log/{syslog,messages,*.log}
+          instance: togodo
+          job: integrations/node_exporter
+        targets:
+        - localhost
+    target_config:
+      sync_period: 10s
+metrics:
+  configs:
+  - name: integrations
+    remote_write:
+    - basic_auth:
+        password: eyJrIjoiY2IyNjZhMjIwYmI0YjhkNjQwNDkzOGIwYTFhN2JkMDA4ZWRlM2Y1MCIsIm4iOiJzdGFjay01MjM1MjUtZWFzeXN0YXJ0LXByb20tcHVibGlzaGVyIiwiaWQiOjc4Mzc0OH0=
+        username: 747837
+      url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+#   scrape_configs:
+#     - job_name: test-python
+#       static_configs:
+#         - targets: ['localhost:9000']
+  global:
+    scrape_interval: 60s
+  wal_directory: /tmp/grafana-agent-wal
+

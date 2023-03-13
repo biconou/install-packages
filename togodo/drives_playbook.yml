@@ -1,0 +1,76 @@
+---
+
+- name: Local Getting Started First Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    
+    - name: propriétés de /mnt/DATA
+      file:
+        path: /mnt/DATA
+        state: directory
+        owner: root
+        group: root
+        mode: '777'
+
+    - name: mount /mnt/DATA
+      mount:
+        path: /mnt/DATA
+        src: UUID=e550df00-8d62-4f7a-979b-30cdbfbbc68d
+        fstype: ext4
+        state: mounted
+
+    - name: propriétés de /mnt/DATA2
+      file:
+        path: /mnt/DATA2
+        state: directory
+        owner: root
+        group: root
+        mode: '777'
+
+    - name: mount /mnt/DATA2
+      mount:
+        path: /mnt/DATA2
+        src: UUID=93efcc5e-3846-429e-ac66-57107162e098
+        fstype: ext4
+        state: mounted
+
+    - name: propriétés de /mnt/DATA-EXT
+      file:
+        path: /mnt/DATA-EXT
+        state: directory
+        owner: root
+        group: root
+        mode: '777'
+
+    - name: mount /mnt/DATA-EXT
+      mount:
+        path: /mnt/DATA-EXT
+        src: UUID=2ab8e2ea-e8c9-4acd-9833-8f45e3b68e98
+        fstype: ext4
+        boot: false
+        state: mounted
+
+    - name: Install NFS Server.
+      apt:
+        name: nfs-kernel-server
+        state: present
+
+    - name: Ensure required entries are made to hosts file.
+      lineinfile:
+        path: /etc/exports
+        state: present
+        line: "{{ item }}"
+      with_items:
+        - '/mnt/DATA  192.168.0.0/24(rw,all_squash,anonuid=1000,anongid=1000,sync,no_subtree_check)' 
+        - '/mnt/DATA2  192.168.0.0/24(rw,all_squash,anonuid=1000,anongid=1000,sync,no_subtree_check)' 
+
+    - name: Restart nfs-kernel-server.service 
+      ansible.builtin.systemd:
+        daemon_reload: yes
+        state: started
+        name: nfs-kernel-server.service
+
+    - name: Re-export the share
+      command: exportfs -rav

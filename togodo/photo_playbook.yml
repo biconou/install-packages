@@ -1,0 +1,38 @@
+---
+
+- name: Photo tools Playbook
+  connection: local
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - apt_repository:
+        repo: ppa:xtradeb/apps
+        state: present
+
+    - name: installation darktable
+      snap:
+        name:
+          - darktable
+
+    - name: install packages from URL
+      apt:
+        # les codes vuescan se trouvent dans keepass
+        deb: https://www.hamrick.com/files/vuex6497.deb
+        # Emplacement de la base xnview : /mnt/DATA/nextcloud-sync/remi/Photos/.tools/xnview/
+        # à paramétrer dans le menu outils/paramètres/intégration/chemins
+        deb: https://download.xnview.com/XnViewMP-linux-x64.deb
+
+    - name: install packages
+      apt:
+        pkg:
+        - tesseract-ocr
+        - tesseract-ocr-fra
+        - imagemagick
+        - simple-scan
+        - gimp
+        - avidemux*
+        - digikam
+        - kphotoalbum
+        - gimagereader
+        update_cache: yes

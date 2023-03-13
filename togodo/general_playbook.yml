@@ -20,6 +20,13 @@
         - remmina
         - autokey-qt
         - snapd
+        - docker.io
+        - docker-compose
+        - keepass2
+        - baobab
+        - thunderbird
+        - vlc
+        - flameshot
         update_cache: yes
 
     - name: installation packages utilitaires
@@ -41,15 +48,4 @@
       apt:
         pkg:
         - code
-        update_cache: yes
-
-    # Installation KeePass
-    - apt_repository:
-        repo: ppa:jtaylor/keepass
-        state: present
-
-    - name: installation packages KeePass
-      apt:
-        pkg:
-        - keepass2
         update_cache: yes

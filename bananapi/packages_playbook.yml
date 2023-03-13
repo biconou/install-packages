@@ -8,5 +8,8 @@
         - cmus
         - ffmpeg
         - python3-pip
+        - docker.io
+        - docker-compose
+        - apparmor
         update_cache: yes
 
